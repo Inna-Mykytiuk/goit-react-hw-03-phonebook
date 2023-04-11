@@ -18,11 +18,31 @@ export class App extends Component {
     filter: '',
   };
 
-  //створюємо метод для додавання контактів в стейт
+  //зберігаємо контакти в локал сторедж після перезавантаження сторінки вони не зникають і виводяться на екран користувачу
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parseContacts = JSON.parse(contacts);
+    if (parseContacts?.length) {
+      this.setState({ contacts: parseContacts });
+      return;
+    }
+    this.setState({ contacts: this.state.contacts });
+  }
+
+  //зберігаємо контакти в локал сторедж після додавання нового контакту вони не зникають і виводяться на екран користувачу
+  componentDidUpdate(prevState, prevProps) {
+    const nextContacts = this.state.contacts;
+    const prevContacts = prevState.contacts;
+    if (nextContacts !== prevContacts) {
+      localStorage.setItem('contacts', JSON.stringify(nextContacts));
+    }
+  }
+
+  //створюємо метод для додавання контактів в стейт, передаємо в пропси в компонент Phonebook
   addContact = (name, number) => {
     const { contacts } = this.state;
     const contact = {
-      id: nanoid(),
+      id: nanoid(3),
       name,
       number,
     };

@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
 export class Phonebook extends Component {
+  //початковий стан компонента
   state = {
     name: '',
     number: '',
   };
 
+  //створюємо метод для зміни стану
   handleChange = e => {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
   };
 
+  //створюємо метод для відправки форми і очищення інпутів
   handleSubmit = e => {
     e.preventDefault();
 
