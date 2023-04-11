@@ -54,6 +54,8 @@ export const Button = styled.button`
   letter-spacing: 0.03em;
   text-transform: uppercase;
   cursor: pointer;
+  /* cursor: pointer; */
+
   transition: all 0.3s ease 0s;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px;
 
