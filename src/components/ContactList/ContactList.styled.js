@@ -42,10 +42,10 @@ export const ItemWrapper = styled.div`
 
 export const Button = styled.button`
   display: inline-block;
-  padding: 5px 25px;
+  padding: 10px 12px;
   margin: 0px 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 50%;
   background-color: rgb(33, 150, 243);
   color: rgb(255, 255, 255);
   font-size: 16px;
@@ -55,7 +55,7 @@ export const Button = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease 0s;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px;
 
   &:hover,
   &:focus {
