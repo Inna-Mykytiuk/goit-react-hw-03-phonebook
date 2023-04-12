@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { GlobalStyle } from './GlobalStyle';
+
 import { Section } from './Section/Section';
 import { Container } from './App.styled';
 import { Phonebook } from './ContactForm/ContactForm';
@@ -39,13 +39,8 @@ export class App extends Component {
   }
 
   //створюємо метод для додавання контактів в стейт, передаємо в пропси в компонент Phonebook
-  addContact = (name, number) => {
+  addContact = ({ name, number }) => {
     const { contacts } = this.state;
-    const contact = {
-      id: nanoid(3),
-      name,
-      number,
-    };
 
     //перевіряємо чи є такий контакт в потоці, якщо немає то додаємо в потік інакше виводимо алерт що такий контакт вже є в списку контактів і нічого не робимо
     const checkName = contacts.find(
@@ -56,6 +51,12 @@ export class App extends Component {
       alert(`${name} is already in contacts`);
       return;
     }
+
+    const contact = {
+      id: nanoid(3),
+      name,
+      number,
+    };
 
     this.setState(({ contacts }) => ({ contacts: [contact, ...contacts] }));
   };
@@ -83,19 +84,27 @@ export class App extends Component {
   };
 
   render() {
+    const { contacts, filter } = this.state;
+
     const filteredContacts = this.getFilteredContacts();
+
+    const isContactsEmpty = contacts.length === 0;
     return (
       <Container>
-        <GlobalStyle />
         <Section title="Phonebook">
           <Phonebook onSubmit={this.addContact} />
         </Section>
         <Section title="Contacts">
-          <Filter value={this.filter} onChange={this.changeFilter} />
-          <ContactList
-            contacts={filteredContacts}
-            onDeleteContact={this.deleteContact}
-          />
+          {!isContactsEmpty && (
+            <>
+              <Filter value={filter} onChange={this.changeFilter} />
+              <ContactList
+                contacts={filteredContacts}
+                onDeleteContact={this.deleteContact}
+              />
+            </>
+          )}
+          {isContactsEmpty && <p>There are no contacts yet</p>}
         </Section>
       </Container>
     );

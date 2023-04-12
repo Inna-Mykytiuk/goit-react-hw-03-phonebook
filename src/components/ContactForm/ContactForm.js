@@ -19,7 +19,7 @@ export class Phonebook extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.props.onSubmit(this.state.name, this.state.number);
+    this.props.onSubmit({ ...this.state });
 
     this.setState({ name: '', number: '' });
   };
